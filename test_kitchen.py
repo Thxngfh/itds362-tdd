@@ -2,13 +2,12 @@
 # การคูณ​ต้อง​ไม่​เปลี่ยน​ค่า​ของ​อ็อบเจ็กต์​เดิม
 # ปริมาณ​สอง​ค่าที่​มี​ทั้ง​ตัวเลข​และ​หน่วย​เท่ากัน​ถือว่า​เท่ากัน
 # 1 oz ไม่​เท่ากับ 1 g
-#  200 g + 300 g = 500 g
+# 200 g + 300 g = 500 g
 # 200 g + 1 oz แปลง​ผลลัพธ์​เป็น​กรัม​โดย​ใช้​อัตรา​แปลง​หน่วย
-#  (200 g + 1 oz) × 2
+# (200 g + 1 oz) × 2
 
 # test_kitchen.py
 from kitchen import Quantity
- 
  
 def test_multiplication():
     flour = Quantity(200)
@@ -31,3 +30,8 @@ def test_equality():
 
 def test_grams_are_not_ounces():
     assert Quantity(1, "g") != Quantity(1, "oz")
+
+def test_simple_addition():
+    total = grams(200).plus(grams(300))
+    converter = Converter()
+    assert converter.reduce(total, "g") == grams(500)
